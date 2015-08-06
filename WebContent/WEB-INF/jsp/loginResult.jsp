@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="cscjava.User" %>
+<%@ page import="model.User" %>
 <%
 //セッションスコープからユーザー情報を取得
 User loginUser = (User)session.getAttribute("loginUser");
@@ -16,10 +16,10 @@ User loginUser = (User)session.getAttribute("loginUser");
 <% if(loginUser != null) {%>
 <p>ログインに成功しました</p>
 <p>ようこそ<%= loginUser.getName() %>さん</p>
-<a href = "/docoTsubu/Main">つぶやき投稿・閲覧へ</a>
+<a href = "/csvjava/Main">つぶやき投稿・閲覧へ</a>
 <% } else{ %>
 <p>ログインに失敗しました</p>
-<a href="/docoTsubu/">ＴＯＰへ</a>
+<a href="/cscjava/">ＴＯＰへ</a>
 <% } %>
 </body>
 </html>

@@ -10,17 +10,28 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+/**
+ * Servlet implementation class Logout
+ */
 @WebServlet("/Logout")
-public class Logout extends HttpServlet{
+public class Logout extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	protected void doGet(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException{
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
 		//セッションスコープを破棄
 		HttpSession session = request.getSession();
 		session.invalidate();
-
+		
 		//ログアウト画面にフォワード
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/logout.jsp");
+		RequestDispatcher dispatcher = 
+				request.getRequestDispatcher("/WEB-INF/jsp/logout.jsp");
 		dispatcher.forward(request, response);
+	
+	
 	}
+
 }

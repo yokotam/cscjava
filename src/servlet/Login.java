@@ -10,30 +10,33 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import cscjava.LoginLogic;
-import cscjava.User;
+import model.LoginLogic;
+import model.User;
 
+/**
+ * Servlet implementation class Login
+ */
 @WebServlet("/Login")
-public class Login extends HttpServlet{
+public class Login extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	protected void doPost(HttpServletRequest request,HttpServletResponse response)
-		throws ServletException, IOException{
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
 
 		//リクエストパラメータの取得
 		request.setCharacterEncoding("UTF-8");
-		String name = request.getParameter("name");
-		String pass = request.getParameter("pass");
 
 		//Userインスタンス（ユーザー情報）の生成
-		User user = new User(name, pass);
+		User user = new User(
+				request.getParameter("name")
+				,request.getParameter("pass"));
 
 		//ログイン処理
 		LoginLogic loginLogic = new LoginLogic();
-		boolean isLogin = loginLogic.execute(user);
-
-		//ログイン成功時の処理
-		if(isLogin){
+		if(loginLogic.execute(user)){
 			//ユーザー情報をセッションスコープに保存
 			HttpSession session = request.getSession();
 			session.setAttribute("loginUser", user);
@@ -43,5 +46,7 @@ public class Login extends HttpServlet{
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/loginResult.jsp");
 		dispatcher.forward(request, response);
 
+
 	}
+
 }

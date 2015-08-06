@@ -4,11 +4,11 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>どこつぶ</title>
+<title>title</title>
 </head>
 <body>
-<h1>どこつぶへようこそ</h1>
-<form action="/docoTsubu/Login" method="post">
+<h1>ログイン画面</h1>
+<form action="/cscjava/Login" method="post">
 ユーザー名：<input type="text" name="name"><br />
 パスワード：<input type="password" name="pass"><br />
 <input type="submit" value="ログイン">

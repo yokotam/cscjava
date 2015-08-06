@@ -1,4 +1,4 @@
-package cscjava;
+package model;
 
 import java.io.Serializable;
 
@@ -10,6 +10,18 @@ public class Mutter implements Serializable{
 		this.userName = userName;
 		this.text = text;
 	}
-	public String getUserName(){ return userName; }
-	public String getText(){ return text; }
+	/**
+	 * userNameを取得します。
+	 * @return userName
+	 */
+	public String getUserName() {
+	    return userName;
+	}
+	/**
+	 * textを取得します。
+	 * @return text
+	 */
+	public String getText() {
+	    return text;
+	}
 }

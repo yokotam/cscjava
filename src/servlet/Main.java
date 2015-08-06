@@ -13,34 +13,53 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import cscjava.Mutter;
-import cscjava.User;
+import model.Mutter;
+import model.User;
 
+/**
+ * Servlet implementation class Main
+ */
 @WebServlet("/Main")
-public class Main extends HttpServlet{
+public class Main extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	protected void doGet(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException{
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+
 		//つぶやきリストをアプリケーションスコープから取得
 		ServletContext application = this.getServletContext();
-		List<Mutter> mutterList = (List<Mutter>)application.getAttribute("mutterList");
-		//取得できなかった場合は、つぶやきリストを新規作成してアプリケーションスコープに保存
+		List<Mutter> mutterList =
+				(List<Mutter>)application.getAttribute("mutterList");
+
+		//取得できなかった場合は、つぶやきリストを新規作成して
+		//アプリケーションスコープに保存
 		if(mutterList == null){
 			mutterList = new ArrayList<Mutter>();
 			application.setAttribute("mutterList", mutterList);
 		}
-		//ログインしているか確認するためセッションスコープからユーザー情報を取得
+
+		//ログインしているか確認するため
+		//セッションスコープからユーザー情報を取得
 		HttpSession session = request.getSession();
 		User loginUser = (User)session.getAttribute("loginUser");
 
-		if(loginUser == null){
-			//ログインしていない場合リダイレクト
-			response.sendRedirect("/docoTsubu/");
-		}else{
-			//ログイン済の場合フォワード
-			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/main.jsp");
+		if(loginUser == null){	//ログインしていない場合
+			//リダイレクト
+			response.sendRedirect("/cscjava/");
+		}else{	//ログイン済の場合
+			//フォワード
+			RequestDispatcher dispatcher =
+					request.getRequestDispatcher("/WEB-INF/jsp/main.jsp");
 			dispatcher.forward(request, response);
 		}
+
+
+
+
+
 
 	}
 
