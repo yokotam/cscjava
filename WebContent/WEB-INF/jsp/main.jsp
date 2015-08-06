@@ -21,7 +21,7 @@ List<Mutter> mutterList =
 <a href="/cscjava/Logout">ログアウト</a>
 </p>
 <p><a href="/cscjava/Main">更新</a></p>
-<form action="cscjava/Main" method="post">
+<form action="/cscjava/Main" method="post">
 <input type="text" name="text">
 <input type="submit" value="つぶやく">
 </form>
