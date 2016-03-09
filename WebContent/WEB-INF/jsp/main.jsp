@@ -1,12 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="model.User,model.Mutter,java.util.List" %>
+<%@ page import="model.Hatsugen,model.GetListLogic" %>
 <%
-//セッションスコープに保存されたユーザー情報を取得
-User loginUser = (User)session.getAttribute("loginUser");
-//アプリケーションスコープに保存されたつぶやきリストを取得
-List<Mutter> mutterList =
-	(List<Mutter>)application.getAttribute("mutterList");
+//アプリケーションスコープに保存された発言内容を取得
+GetListLogic hatsugenList = new GetListLogic();
 //エラーメッセージを取得
 String errorMsg = (String)request.getAttribute("errorMsg");
 %>
@@ -14,24 +11,13 @@ String errorMsg = (String)request.getAttribute("errorMsg");
 <html>
 <head>
 <meta charset="UTF-8">
-<title>どこつぶ</title>
+<title>CSC</title>
 </head>
 <body>
-<h1>どこつぶメイン</h1>
-<p>
-<%= loginUser.getName() %>さん、ログイン中
-<a href="/cscjava/Logout">ログアウト</a>
-</p>
-<p><a href="/cscjava/Main">更新</a></p>
-<form action="/cscjava/Main" method="post">
-<input type="text" name="text">
-<input type="submit" value="つぶやく">
-</form>
-<% if(errorMsg != null){ %>
-<p><%= errorMsg %></p>
-<% } %>
-<% for(Mutter mutter : mutterList) {%>
-<p><%= mutter.getUserName() %>：<%= mutter.getText() %></p>
+<h1>掲示板</h1>
+<% for(Hatsugen hhh : hatsugenList.execute()){%>
+<p><%= hhh.getComment() %></p>
 <% } %>
 </body>
 </html>
+

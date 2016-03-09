@@ -8,7 +8,7 @@
 </head>
 <body>
 <h1>ログイン画面</h1>
-<form action="/cscjava/Login" method="post">
+<form action="/keijiban/Login" method="post">
 ユーザー名：<input type="text" name="name"><br />
 パスワード：<input type="password" name="pass"><br />
 <input type="submit" value="ログイン">
