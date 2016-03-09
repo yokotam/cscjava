@@ -5,6 +5,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,7 +20,8 @@ public class HatsugenDao {
 	// JDBCドライバの登録
 	private String driver = "org.postgresql.Driver";
 	// データベースの指定
-	private String server = "210.129.133.232";
+//	private String server = "210.129.133.232";
+	private String server = "localhost";
 	private String dbname = "cscboard";
 	private String url = "jdbc:postgresql://" + server + "/" + dbname;
 	private String user = "postgres";
@@ -29,20 +31,28 @@ public class HatsugenDao {
 		List<model.Hatsugen> hatsugenList = new ArrayList<model.Hatsugen>();
 
 		try{
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 			// JDBCドライバを読み込む
 			Class.forName(driver);
 			// データベースに接続
 			conn = DriverManager.getConnection(url,user,password);
 			//System.out.println(jouken.getNum());
 			//Select文の準備
-			String sql = "SELECT id,hatsugen,name,updatetime FROM v_keijiban ORDER BY sid DESC limit "+Integer.toString(jouken.getNum());
-
+			String sql = "SELECT id,hatsugen,name,updatetime FROM v_keijiban WHERE TRUE" +
+			//コメント内容
+			((jouken.getComment() == null || jouken.getComment().length() == 0) ? "" : " AND hatsugen LIKE '%" + jouken.getComment() + "%' ") +
+			//日付
+			((jouken.getDateFrom() == null) ? "" : " AND updatetime >= '" + sdf.format(jouken.getDateFrom()) + "'") +
+			((jouken.getDateTo() == null) ? "" : " AND updatetime <= '" + sdf.format(jouken.getDateTo()) + "'") +
+			//並び順
+			" ORDER BY sid " +
+			(jouken.isSortDesc() ? "DESC" : "")
+			+ " limit "+Integer.toString(jouken.getNum());
 
 			pStmt = conn.prepareStatement(sql);
 
 			//SELECT文を実行
 			rs = pStmt.executeQuery();
-			System.out.println("実行");
 
 			//SELECT文の結果をArrayListに格納
 			while(rs.next()){

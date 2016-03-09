@@ -1,38 +1,44 @@
 package test;
 
+import java.text.SimpleDateFormat;
+
 import model.GetListLogic;
 import model.Hatsugen;
 
 public class main {
 
 	public static void main(final String[] args)  {
-		// TODO 自動生成されたメソッド・スタブ
 
+
+
+		//表示
+		ShowMessage();
+	}
+
+	private static void ShowMessage(){
 		try {
 
-		GetListLogic hatsugenList = new GetListLogic();
+			GetListLogic hatsugenList = new GetListLogic();
 
 
-		hatsugenList.setName("石井");
-		hatsugenList.setNum(-1);
-	//	hatsugenList.setDateFrom();
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
+			//検索条件をセット
+			hatsugenList.setNum(13);
+			hatsugenList.setDateFrom(sdf.parse("20141210"));
+			hatsugenList.setComment("大吉");
+//			hatsugenList.setSortDesc(false);
 
-		for(Hatsugen hhh : hatsugenList.execute()){
+			for(Hatsugen hhh : hatsugenList.execute()){
 
+				System.out.println(hhh.getComment());
 
-			System.out.println(hhh.getComment());
-
-		}
+			}
 
 		} catch (Exception e) {
-			// TODO 自動生成された catch ブロック
 			System.out.println(e.getMessage());
 		}
 
-
 	}
-
-
 
 		/* この処理は、ログイン時に実施。ログインメンバーはセッションで保持 */
 //		Member loginUser = new Member();
