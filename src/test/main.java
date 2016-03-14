@@ -60,9 +60,9 @@ public class main {
 
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
 			//検索条件をセット
-			hatsugenList.setNum(13);
-			hatsugenList.setDateFrom(sdf.parse("20141210"));
-			hatsugenList.setComment("大吉");
+//			hatsugenList.setNum(13);
+//			hatsugenList.setDateFrom(sdf.parse("20141210"));
+//			hatsugenList.setComment("大吉");
 //			hatsugenList.setSortDesc(false);
 
 			for(Hatsugen hhh : hatsugenList.execute()){

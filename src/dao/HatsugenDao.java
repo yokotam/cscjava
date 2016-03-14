@@ -20,8 +20,8 @@ public class HatsugenDao {
 	// JDBCドライバの登録
 	private String driver = "org.postgresql.Driver";
 	// データベースの指定
-//	private String server = "210.129.133.232";
-	private String server = "localhost";
+	private String server = "210.129.133.232";
+//	private String server = "localhost";
 	private String dbname = "cscboard";
 	private String url = "jdbc:postgresql://" + server + "/" + dbname;
 	private String user = "postgres";
@@ -50,6 +50,9 @@ public class HatsugenDao {
 			+ " limit "+Integer.toString(jouken.getNum());
 
 			pStmt = conn.prepareStatement(sql);
+
+
+			System.out.println(sql);
 
 			//SELECT文を実行
 			rs = pStmt.executeQuery();
