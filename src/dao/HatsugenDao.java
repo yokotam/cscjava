@@ -38,7 +38,7 @@ public class HatsugenDao {
 			conn = DriverManager.getConnection(url,user,password);
 			//System.out.println(jouken.getNum());
 			//Select文の準備
-			String sql = "SELECT id,hatsugen,name,updatetime FROM v_keijiban WHERE TRUE" +
+			String sql = "SELECT id,hatsugen,name,updatetime FROM v_keijiban WHERE TRUE " +
 			//コメント内容
 			((jouken.getComment() == null || jouken.getComment().length() == 0) ? "" : " AND hatsugen LIKE '%" + jouken.getComment() + "%' ") +
 			//日付
@@ -85,6 +85,45 @@ public class HatsugenDao {
 		return hatsugenList;
 
 	}
+
+	public void toukou(model.GetListLogic jouken) throws SQLException{
+		try{
+			// JDBCドライバを読み込む
+			Class.forName(driver);
+			// データベースに接続
+			conn = DriverManager.getConnection(url,user,password);
+			String sql = "INSERT INTO t_keijiban(id,hatsugen) VALUES(nextval('keijibanid_seq'),?)";
+
+			pStmt = conn.prepareStatement(sql);
+
+			//pStmt.setInt(1, hatsugen.getUser().getId());
+			pStmt.setString(1, jouken.getComment());
+//		pStmt.setString(1, "ちっくしょー");
+
+			//INSERT文の実行
+			pStmt.executeUpdate();
+
+		}catch (SQLException e){
+			System.err.println("SQL failed.");
+			e.printStackTrace();
+		} catch (ClassNotFoundException ex){
+			ex.printStackTrace();
+		}finally{
+			//データベースを切断
+			if(rs != null) rs.close();
+			if(pStmt != null) pStmt.close();
+			if(conn != null) {
+				try{
+					conn.close();
+				}catch(SQLException e){
+					e.printStackTrace();
+				}
+			}
+		}
+	}
+
+
+
 
 	public void posts(model.Hatsugen hatsugen) throws Exception{
 

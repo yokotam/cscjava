@@ -46,12 +46,20 @@ public class GetListLogic {
 	public String getComment() {
 		return comment;
 	}
-	public void setComment(String comment) {
+	private void setComment(String comment) {
 		this.comment = comment;
 	}
 
 
+	private int id;
 
+
+	public int getId() {
+		return id;
+	}
+	private void setId(int id) {
+		this.id = id;
+	}
 	public GetListLogic(){ }
 
 
@@ -67,6 +75,33 @@ public class GetListLogic {
 			e.printStackTrace();
 		}
 		return hatsugenList;
+	}
+
+	//親発言に対するコメント
+	public void createComment(int id, String comment) throws SQLException{
+
+		setId(id);
+		createComment(comment);
+	}
+
+	//新規
+	public void createComment(String comment) throws SQLException{
+
+		setComment(comment);
+
+		dao.HatsugenDao dao = new dao.HatsugenDao();
+		dao.toukou(this);
+
+	}
+
+	//削除
+	public void editComment(int id){
+
+	}
+
+	//修正
+	public void editComment(int id, String comment){
+
 	}
 
 }
