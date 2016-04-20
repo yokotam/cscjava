@@ -92,13 +92,41 @@ public class HatsugenDao {
 			Class.forName(driver);
 			// データベースに接続
 			conn = DriverManager.getConnection(url,user,password);
-			String sql = "INSERT INTO t_keijiban(id,hatsugen) VALUES(nextval('keijibanid_seq'),?)";
+			System.out.println(jouken.getId());
+			String sql;
+			if(jouken.getId() < 0){
 
+				sql = "INSERT INTO t_keijiban(id,hatsugen) VALUES(nextval('keijibanid_seq'),?)";
+
+			}else{
+
+				sql ="INSERT INTO t_keijiban(id,hatsugen,person) SELECT DISTINCT on(id) ?,?,person FROM t_keijiban WHERE id = ?";
+
+			}
+/*
+			--新規発言（コメントのみ）
+			INSERT INTO t_keijiban(id,hatsugen) VALUES(nextval('keijibanid_seq'),'発言内容');
+
+			--発言を削除（IDのみ）
+			INSERT INTO t_keijiban_truncate(id) VALUES(6);
+
+			--発言を修正（IDとコメント）
+			INSERT INTO t_keijiban(id,hatsugen,person) SELECT DISTINCT on(id) 38,'発言の訂正に発言者情報は不要?',person FROM t_keijiban WHERE id = 38;
+
+
+			--親発言に対するコメント（IDとコメント）
+*/
 			pStmt = conn.prepareStatement(sql);
 
-			//pStmt.setInt(1, hatsugen.getUser().getId());
-			pStmt.setString(1, jouken.getComment());
-//		pStmt.setString(1, "ちっくしょー");
+			if(jouken.getId() < 0){
+				pStmt.setString(1, jouken.getComment());
+			}else{
+				pStmt.setInt(1, jouken.getId());
+				//pStmt.setInt(1, hatsugen.getUser().getId());
+				pStmt.setString(2, jouken.getComment());
+	//		pStmt.setString(1, "ちっくしょー");
+				pStmt.setInt(3, jouken.getId());
+			}
 
 			//INSERT文の実行
 			pStmt.executeUpdate();
