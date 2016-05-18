@@ -94,15 +94,21 @@ public class HatsugenDao {
 			conn = DriverManager.getConnection(url,user,password);
 			System.out.println(jouken.getId());
 			String sql;
-			if(jouken.getId() < 0){
+//			if(jouken.getId() < 0){
+			if(jouken.getType().equals("")){
 
 				sql = "INSERT INTO t_keijiban(id,hatsugen) VALUES(nextval('keijibanid_seq'),?)";
 
 			}else{
 
-				sql ="INSERT INTO t_keijiban(id,hatsugen,person) SELECT DISTINCT on(id) ?,?,person FROM t_keijiban WHERE id = ?";
 
+				if(jouken.getType().equals("DELETE")){
+					sql = "INSERT INTO t_keijiban_truncate(id) VALUES(?)";
+				}else{
+					sql ="INSERT INTO t_keijiban(id,hatsugen,person) SELECT DISTINCT on(id) ?,?,person FROM t_keijiban WHERE id = ?";
+				}
 			}
+
 /*
 			--新規発言（コメントのみ）
 			INSERT INTO t_keijiban(id,hatsugen) VALUES(nextval('keijibanid_seq'),'発言内容');
@@ -121,11 +127,15 @@ public class HatsugenDao {
 			if(jouken.getId() < 0){
 				pStmt.setString(1, jouken.getComment());
 			}else{
-				pStmt.setInt(1, jouken.getId());
-				//pStmt.setInt(1, hatsugen.getUser().getId());
-				pStmt.setString(2, jouken.getComment());
-	//		pStmt.setString(1, "ちっくしょー");
-				pStmt.setInt(3, jouken.getId());
+				if(jouken.getComment() == null){
+					pStmt.setInt(1, jouken.getId());
+				}else{
+					pStmt.setInt(1, jouken.getId());
+					//pStmt.setInt(1, hatsugen.getUser().getId());
+					pStmt.setString(2, jouken.getComment());
+		//		pStmt.setString(1, "ちっくしょー");
+					pStmt.setInt(3, jouken.getId());
+				}
 			}
 
 			//INSERT文の実行

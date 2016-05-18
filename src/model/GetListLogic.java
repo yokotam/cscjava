@@ -34,6 +34,14 @@ public class GetListLogic {
 		}
 	}
 
+	private String type = "";
+	public String getType() {
+		return type;
+	}
+	public void setType(String type) {
+		this.type = type;
+	}
+
 	private boolean sortDesc = true;
 	public boolean isSortDesc() {
 		return sortDesc;
@@ -95,9 +103,17 @@ public class GetListLogic {
 	}
 
 	//削除
-	public void editComment(int id){
+	private void editComment(int id) throws SQLException{
 
+		setId(id);
+		dao.HatsugenDao dao = new dao.HatsugenDao();
+		setType("delete");
+		dao.toukou(this);
 	}
+	public void deleteComment(int id) throws SQLException{
+		this.editComment(id);
+	}
+
 
 	//修正
 	public void editComment(int id, String comment){
