@@ -9,6 +9,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
+import model.DoHatsugen;
 import model.Hatsugen;
 
 public class HatsugenDao {
@@ -20,12 +21,17 @@ public class HatsugenDao {
 	// JDBCドライバの登録
 	private String driver = "org.postgresql.Driver";
 	// データベースの指定
-	private String server = "210.129.133.232";
-//	private String server = "localhost";
+//	private String server = "210.129.133.232";
+	private String server = "localhost";
 	private String dbname = "cscboard";
 	private String url = "jdbc:postgresql://" + server + "/" + dbname;
 	private String user = "postgres";
 	private String password = "";
+
+
+
+	//http://qiita.com/niusounds/items/3983b77966a14d309fec
+
 
 	public List<model.Hatsugen> findAll(model.GetListLogic jouken) throws SQLException{
 		List<model.Hatsugen> hatsugenList = new ArrayList<model.Hatsugen>();
@@ -85,6 +91,62 @@ public class HatsugenDao {
 		return hatsugenList;
 
 	}
+
+
+
+
+	public void newToukou(model.GetListLogic jouken, DoHatsugen sql) throws SQLException {
+		try{
+			// JDBCドライバを読み込む
+			Class.forName(driver);
+			// データベースに接続
+			conn = DriverManager.getConnection(url,user,password);
+			sql.DoSQL(jouken);
+			//実行
+			pStmt.executeUpdate();
+
+		}catch (SQLException e){
+			System.err.println("SQL failed.");
+			e.printStackTrace();
+		} catch (ClassNotFoundException ex){
+			ex.printStackTrace();
+		}finally{
+			//データベースを切断
+			if(rs != null) rs.close();
+			if(pStmt != null) pStmt.close();
+			if(conn != null) {
+				try{
+					conn.close();
+				}catch(SQLException e){
+					e.printStackTrace();
+				}
+			}
+		}
+
+	}
+
+
+	public void deleteSQ(model.GetListLogic jouken){
+
+		System.out.println("でりーと");
+
+	}
+
+	public void insertSQL(model.GetListLogic jouken) throws Exception{
+
+		if(conn == null)
+			throw new Exception("直接呼べないよ");
+
+		System.out.println(conn == null);
+
+		pStmt = conn.prepareStatement("INSERT INTO t_keijiban(id,hatsugen) VALUES(nextval('keijibanid_seq'),?)");
+		pStmt.setString(1, jouken.getComment());
+	}
+
+
+
+
+
 
 	public void toukou(model.GetListLogic jouken) throws SQLException{
 		try{
@@ -198,4 +260,13 @@ public class HatsugenDao {
 			}
 		}
 	}
+
+
+
+
+
+
+
+
+
 }

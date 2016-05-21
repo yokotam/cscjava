@@ -1,6 +1,5 @@
 package test;
 
-import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 
 import model.GetListLogic;
@@ -9,8 +8,7 @@ import model.Member;
 
 public class main {
 
-	public static void main(final String[] args)  {
-
+	public static void main(String[] args)  {
 
 		//書き込み
 		//オーバーライドは二つ
@@ -18,7 +16,7 @@ public class main {
 		WriteMessage();
 
 		//表示
-		ShowMessage();
+//		ShowMessage();
 	}
 
 	private static void WriteMessage(){
@@ -39,15 +37,15 @@ public class main {
 		/* 発言内容を投稿（新規） */
 		try {
 //			getListLogic.setComment("石井さんだってがんばってる。");
-			//getListLogic.createComment("いしだてくんはがんばった、と、思う、と、言えと言われた。");
+			getListLogic.createComment("いしだてくんはがんばった、と、思う、と、言えと言われた。");
 
 
 			//getListLogic.createComment(123, "わーい");
 
-			getListLogic.deleteComment(6);
+			//getListLogic.deleteComment(6);
 
 
-		} catch (SQLException e) {
+		} catch (Exception e) {
 			// TODO 自動生成された catch ブロック
 			e.printStackTrace();
 		}

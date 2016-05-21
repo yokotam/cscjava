@@ -86,19 +86,28 @@ public class GetListLogic {
 	}
 
 	//親発言に対するコメント
-	public void createComment(int id, String comment) throws SQLException{
+	public void createComment(int id, String comment) throws Exception{
 
 		setId(id);
 		createComment(comment);
 	}
 
 	//新規
-	public void createComment(String comment) throws SQLException{
+	public void createComment(String comment) throws Exception{
 
 		setComment(comment);
 
+
 		dao.HatsugenDao dao = new dao.HatsugenDao();
-		dao.toukou(this);
+
+
+		dao.newToukou(this,c -> { try {
+			dao.insertSQL(c);
+		} catch (Exception e) {
+			// TODO 自動生成された catch ブロック
+			e.printStackTrace();
+		}});
+//		dao.toukou(this);
 
 	}
 
@@ -108,7 +117,12 @@ public class GetListLogic {
 		setId(id);
 		dao.HatsugenDao dao = new dao.HatsugenDao();
 		setType("delete");
-		dao.toukou(this);
+//		dao.toukou(this);
+
+		dao.newToukou(this,c -> { dao.deleteSQ(c);dao.deleteSQ(c);});
+
+		dao.deleteSQ(this);
+
 	}
 	public void deleteComment(int id) throws SQLException{
 		this.editComment(id);
