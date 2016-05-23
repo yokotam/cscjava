@@ -42,6 +42,17 @@ public class GetListLogic {
 		this.type = type;
 	}
 
+	public enum WRITE{NEW,EDIT,DELETE}
+	private WRITE dousa;
+	public WRITE getDousa() {
+		return dousa;
+	}
+	public void setDousa(WRITE dousa) {
+		this.dousa = dousa;
+	}
+
+
+
 	private boolean sortDesc = true;
 	public boolean isSortDesc() {
 		return sortDesc;
@@ -97,31 +108,45 @@ public class GetListLogic {
 
 		setComment(comment);
 
-
 		dao.HatsugenDao dao = new dao.HatsugenDao();
 
+		//パターンその１：GetListLogicに、新規・変更などのフラグを持っておく
+		setDousa(WRITE.NEW);
+		dao.toukou_1(this);
 
-		dao.newToukou(this,c -> { try {
-			dao.insertSQL(c);
-		} catch (Exception e) {
-			// TODO 自動生成された catch ブロック
-			e.printStackTrace();
-		}});
-//		dao.toukou(this);
+
+/*		//パターンその２：DAOクラスに新規・変更などのフラグを持っておく
+		dao.setNew(true);
+		dao.toukou_2(this);
+*/
+
+
+/*		//パターンその３：フラグを引数として同時に渡す
+		dao.toukou_3(this,WRITE.NEW);
+*/
+
+/*		//パターンその４：そもそもメソッド名を変える
+		dao.toukou_4_NEW(this);
+*/
+
+/*		//パターンその５：でりげーと
+		dao.toukou_5(this, c -> dao.insertSQL(c));
+*/
+
 
 	}
 
 	//削除
 	private void editComment(int id) throws SQLException{
 
+
 		setId(id);
 		dao.HatsugenDao dao = new dao.HatsugenDao();
 		setType("delete");
 //		dao.toukou(this);
 
-		dao.newToukou(this,c -> { dao.deleteSQ(c);dao.deleteSQ(c);});
 
-		dao.deleteSQ(this);
+
 
 	}
 	public void deleteComment(int id) throws SQLException{

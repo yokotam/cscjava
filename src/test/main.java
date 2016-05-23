@@ -16,7 +16,7 @@ public class main {
 		WriteMessage();
 
 		//表示
-//		ShowMessage();
+		ShowMessage();
 	}
 
 	private static void WriteMessage(){
@@ -37,7 +37,7 @@ public class main {
 		/* 発言内容を投稿（新規） */
 		try {
 //			getListLogic.setComment("石井さんだってがんばってる。");
-			getListLogic.createComment("いしだてくんはがんばった、と、思う、と、言えと言われた。");
+			getListLogic.createComment("真夏日だってさー");
 
 
 			//getListLogic.createComment(123, "わーい");
