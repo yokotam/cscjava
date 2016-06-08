@@ -109,11 +109,11 @@ public class GetListLogic {
 		setComment(comment);
 
 		dao.HatsugenDao dao = new dao.HatsugenDao();
-
+/*
 		//パターンその１：GetListLogicに、新規・変更などのフラグを持っておく
 		setDousa(WRITE.NEW);
 		dao.toukou_1(this);
-
+*/
 
 /*		//パターンその２：DAOクラスに新規・変更などのフラグを持っておく
 		dao.setNew(true);
@@ -121,17 +121,26 @@ public class GetListLogic {
 */
 
 
-/*		//パターンその３：フラグを引数として同時に渡す
+		//パターンその３：フラグを引数として同時に渡す
 		dao.toukou_3(this,WRITE.NEW);
-*/
 
-/*		//パターンその４：そもそもメソッド名を変える
-		dao.toukou_4_NEW(this);
-*/
 
-/*		//パターンその５：でりげーと
+		//パターンその４：そもそもメソッド名を変える
+//		dao.toukou_4_NEW(this);
+
+
+
+		//パターンその５：でりげーと
 		dao.toukou_5(this, c -> dao.insertSQL(c));
-*/
+
+
+		//ﾊﾟﾀｰﾝその６菅船さん
+				dao.toukou_6_NEW(this);
+
+		//ﾊﾟﾀｰﾝその７　石井さんがもっと良い方法を考える
+
+		//ﾊﾟﾀｰﾝその８　石舘君がもっと良い方法を考える
+
 
 
 	}

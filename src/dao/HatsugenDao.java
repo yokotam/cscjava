@@ -334,6 +334,48 @@ public class HatsugenDao {
 	}
 
 
+	public void toukou_6_NEW(model.GetListLogic jouken) throws SQLException{
+
+			String sql = "INSERT INTO t_keijiban(id,hatsugen) VALUES(nextval('keijibanid_seq'),'" + jouken.getComment() + "')";
+
+			toukou_6(jouken,sql);
+
+	}
+
+	public void toukou_6(model.GetListLogic jouken,String sql) throws SQLException{
+		try{
+			// JDBCドライバを読み込む
+			Class.forName(driver);
+			// データベースに接続
+			conn = DriverManager.getConnection(url,user,password);
+
+
+			pStmt = conn.prepareStatement(sql);
+
+//			pStmt.setString(1, jouken.getComment());
+
+			//SQL文の実行
+			pStmt.executeUpdate();
+
+		}catch (SQLException e){
+			System.err.println("SQL failed.");
+			e.printStackTrace();
+		} catch (ClassNotFoundException ex){
+			ex.printStackTrace();
+		}finally{
+			//データベースを切断
+			if(rs != null) rs.close();
+			if(pStmt != null) pStmt.close();
+			if(conn != null) {
+				try{
+					conn.close();
+				}catch(SQLException e){
+					e.printStackTrace();
+				}
+			}
+		}
+	}
+
 
 	public void toukou_5(model.GetListLogic jouken, DoHatsugen sql) throws SQLException {
 		try{
@@ -341,6 +383,7 @@ public class HatsugenDao {
 			Class.forName(driver);
 			// データベースに接続
 			conn = DriverManager.getConnection(url,user,password);
+
 			sql.DoSQL(jouken);
 			//実行
 			pStmt.executeUpdate();

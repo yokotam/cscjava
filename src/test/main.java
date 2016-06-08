@@ -37,7 +37,7 @@ public class main {
 		/* 発言内容を投稿（新規） */
 		try {
 //			getListLogic.setComment("石井さんだってがんばってる。");
-			getListLogic.createComment("真夏日だってさー");
+			getListLogic.createComment("あああ");
 
 
 			//getListLogic.createComment(123, "わーい");
