@@ -62,6 +62,8 @@ public class HatsugenDao {
 			while(rs.next()){
 				int id = rs.getInt("id");
 				String comment = rs.getString("hatsugen");
+
+
 				Hatsugen hatsugen = new Hatsugen(id,comment);
 				hatsugenList.add(hatsugen);
 			}
@@ -278,6 +280,9 @@ public class HatsugenDao {
 
 			//SQL文の実行
 			pStmt.executeUpdate();
+
+			System.out.println(sql);
+
 
 		}catch (SQLException e){
 			System.err.println("SQL failed.");

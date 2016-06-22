@@ -13,7 +13,7 @@ public class main {
 		//書き込み
 		//オーバーライドは二つ
 		//
-		WriteMessage();
+		//WriteMessage();
 
 		//表示
 		ShowMessage();
@@ -37,12 +37,13 @@ public class main {
 		/* 発言内容を投稿（新規） */
 		try {
 //			getListLogic.setComment("石井さんだってがんばってる。");
-			getListLogic.createComment("あああ");
+			//getListLogic.createComment("新規コメント");
 
 
-			//getListLogic.createComment(123, "わーい");
+			//getListLogic.createComment(100027, "コメント変更");
 
-			//getListLogic.deleteComment(6);
+			getListLogic.editComment(100028, "28変更");
+			//getListLogic.deleteComment(100026);
 
 
 		} catch (Exception e) {
@@ -79,14 +80,15 @@ public class main {
 
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
 			//検索条件をセット
-			hatsugenList.setNum(2);
+			hatsugenList.setNum(10);
 			hatsugenList.setDateFrom(sdf.parse("20141210"));
 //			hatsugenList.setComment("大吉");
 //			hatsugenList.setSortDesc(false);
 
 			for(Hatsugen hhh : hatsugenList.execute()){
 
-				System.out.println(hhh.getComment());
+				System.out.println(hhh.getId()+hhh.getComment());
+				//System.out.println(hhh.getId());
 
 			}
 

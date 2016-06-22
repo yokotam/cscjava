@@ -131,11 +131,11 @@ public class GetListLogic {
 
 
 		//パターンその５：でりげーと
-		dao.toukou_5(this, c -> dao.insertSQL(c));
+//		dao.toukou_5(this, c -> dao.insertSQL(c));
 
 
 		//ﾊﾟﾀｰﾝその６菅船さん
-				dao.toukou_6_NEW(this);
+//				dao.toukou_6_NEW(this);
 
 		//ﾊﾟﾀｰﾝその７　石井さんがもっと良い方法を考える
 
@@ -151,9 +151,10 @@ public class GetListLogic {
 
 		setId(id);
 		dao.HatsugenDao dao = new dao.HatsugenDao();
-		setType("delete");
+//		setType("delete");
 //		dao.toukou(this);
 
+		dao.toukou_3(this, WRITE.DELETE);
 
 
 
@@ -164,7 +165,13 @@ public class GetListLogic {
 
 
 	//修正
-	public void editComment(int id, String comment){
+	public void editComment(int id, String comment) throws SQLException{
+
+		setId(id);
+		setComment(comment);
+
+		dao.HatsugenDao dao = new dao.HatsugenDao();
+		dao.toukou_3(this,WRITE.EDIT);
 
 	}
 

@@ -42,6 +42,10 @@ public class Hatsugen implements Serializable{
 		this.user = user;
 	}
 
+	public int getId(){
+		return id;
+	}
+
 
 	public Hatsugen(Member member){
 		this.user = member;
